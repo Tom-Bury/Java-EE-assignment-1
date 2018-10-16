@@ -19,19 +19,38 @@ import rental.Reservation;
 @Stateful
 public class CarRentalSession implements CarRentalSessionRemote {
     
+    /*
+    VARIABLES
+    */
+    
     public String name;
     public List<Quote> quotes = new ArrayList<Quote>();
 
  
+    /*
+    Name
+    */
+    
     public void setName(String name) {
         this.name = name;
     }
     
+   
+    
+    /*
+    RentalCompanies
+    */
 
     @Override
     public Set<String> getAllRentalCompanies() {
         return new HashSet<String>(RentalStore.getRentals().keySet());
     }
+    
+    
+    
+    /*
+    Quotes
+    */
     
     @Override
     public Quote createQuote(ReservationConstraints constraint) {
@@ -52,12 +71,9 @@ public class CarRentalSession implements CarRentalSessionRemote {
         return null;        
     }
     
-    
-    
     public List<Quote> getCurrentQuotes() {
         return this.quotes;
     }
-
     
     public void confirmQuotes() throws ReservationException {
         List<Reservation> reservations = new ArrayList<Reservation>();
@@ -76,8 +92,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
         }
         
     }
-    
-    
+       
     private void undoReservations(List<Reservation> reservations) {
         for (Reservation r : reservations) {
             CarRentalCompany company = RentalStore.getRental(r.getRentalCompany());
@@ -85,6 +100,11 @@ public class CarRentalSession implements CarRentalSessionRemote {
         }
     }
     
+    
+    
+    /*
+    Car availability
+    */
     
     public Set<CarType> checkForAvailableCarTypes(Date start, Date end) {
         Set<String> companies = getAllRentalCompanies();

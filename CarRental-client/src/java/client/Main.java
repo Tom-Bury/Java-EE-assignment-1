@@ -32,8 +32,16 @@ public class Main extends AbstractTestAgency{
         super(scriptFile);
     }
 
+    
+    /*
+    Methodes afkomstig van AbstractTestAgency --> moeten wij een implementatie voor voorzien
+    Niet vergeten om als de implementatie van een methode af is; de exception throw weg te doen.
+    */
+    
+    
     @Override
     protected CarRentalSessionRemote getNewReservationSession(String name) throws Exception {
+        // De volgende code is overgenomen van de opgave deel 3.3
         InitialContext context = new InitialContext();
         CarRentalSessionRemote session = (CarRentalSessionRemote) context.lookup(CarRentalSessionRemote.class.getName());
         session.setName(name);
