@@ -16,6 +16,9 @@ import rental.CarType;
 import rental.ReservationException;
 import rental.Reservation;
 
+
+
+// STATEFULL SESSION BEAN : retains state between method invocations
 @Stateful
 public class CarRentalSession implements CarRentalSessionRemote {
     
@@ -31,6 +34,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
     Name
     */
     
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -63,7 +67,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
                 this.quotes.add(currQuote);
                 return currQuote;
             } catch (ReservationException ex) {
-                System.out.println("CLIENT EJB: could not create quote with company "  + currCompany);
+                System.out.println("CarRentalSession: could not create quote with company "  + currCompany);
                 Logger.getLogger(CarRentalSession.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -71,10 +75,12 @@ public class CarRentalSession implements CarRentalSessionRemote {
         return null;        
     }
     
+    @Override
     public List<Quote> getCurrentQuotes() {
         return this.quotes;
     }
     
+    @Override
     public void confirmQuotes() throws ReservationException {
         List<Reservation> reservations = new ArrayList<Reservation>();
         
@@ -86,7 +92,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
             }
         } catch (ReservationException e) {
             undoReservations(reservations);
-            System.out.println("CARRENTALSESSION: could not confirm quote");
+            System.out.println("CarRentalSession: could not confirm quote");
             Logger.getLogger(CarRentalSession.class.getName()).log(Level.SEVERE, null, e);
             throw e;                
         }
@@ -106,6 +112,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
     Car availability
     */
     
+    @Override
     public Set<CarType> checkForAvailableCarTypes(Date start, Date end) {
         Set<String> companies = getAllRentalCompanies();
         Set<CarType> availableCarTypes = new HashSet<CarType>();
