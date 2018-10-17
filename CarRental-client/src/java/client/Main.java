@@ -97,23 +97,31 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
     
     @Override
     protected ManagerSessionRemote getNewManagerSession(String name, String carRentalName) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         // De volgende code is overgenomen van de opgave deel 3.3
+        InitialContext context = new InitialContext();
+        ManagerSessionRemote session =  (ManagerSessionRemote) context.lookup(ManagerSessionRemote.class.getName());
+        
+        System.out.println("\nCLIENT MAIN: started new managersession");
+        
+        return session;        
     }
     
     @Override
     protected int getNumberOfReservationsBy(ManagerSessionRemote ms, String clientName) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int nbRes = ms.getNbOfReservationsBy(clientName);
+        
+        System.out.println("CIENT MAIN: client " + clientName + " has " + nbRes + " reservations.");
+        
+        return nbRes;
     }
 
     @Override
     protected int getNumberOfReservationsForCarType(ManagerSessionRemote ms, String carRentalName, String carType) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-   
-
-    
-
-    
+        int nbOfReservations = ms.getNumberOfReservationsFor(carType, carRentalName);
+        
+        System.out.println("\nCLIENT MAIN: cartype " + carType + " from company " + carRentalName + 
+                " has " + nbOfReservations + " reservations.");
+        
+        return nbOfReservations;
+    }   
 }

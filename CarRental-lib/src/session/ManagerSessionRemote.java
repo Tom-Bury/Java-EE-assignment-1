@@ -16,4 +16,6 @@ public interface ManagerSessionRemote {
     
     public String getCustomerWithMostReservations(String company);
     
+     public int getNbOfReservationsBy(String clientName);
+    
 }

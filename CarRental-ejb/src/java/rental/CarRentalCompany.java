@@ -175,6 +175,10 @@ public class CarRentalCompany {
         return out;
     }
         
+        public int getNbReservationsBy(String renter) {
+            return this.getReservationsBy(renter).size();           
+        }
+        
         public int getNbReservationsFor(String carType) {
             int counter = 0;
             
