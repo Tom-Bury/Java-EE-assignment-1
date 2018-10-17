@@ -35,6 +35,10 @@ public class Car {
     public CarType getType() {
         return type;
     }
+    
+    public boolean isType(String carType) {
+        return this.type.getName().equals(carType);        
+    }
 
     /****************
      * RESERVATIONS *
