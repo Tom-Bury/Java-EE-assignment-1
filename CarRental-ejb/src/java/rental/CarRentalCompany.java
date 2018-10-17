@@ -15,7 +15,7 @@ public class CarRentalCompany {
 
 	private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
 	
-    private List<String> regions;
+        private List<String> regions;
 	private String name;
 	private List<Car> cars;
 	private Map<String,CarType> carTypes;
@@ -42,6 +42,7 @@ public class CarRentalCompany {
 	public String getName() {
 		return name;
 	}
+        
 
 	private void setName(String name) {
 		this.name = name;
@@ -173,4 +174,58 @@ public class CarRentalCompany {
         }
         return out;
     }
+        
+        public int getNbReservationsFor(String carType) {
+            int counter = 0;
+            
+            for (Car c : this.cars) {
+   
+                if (c.isType(carType)) {
+                    counter += c.getAllReservations().size();
+                }
+            }
+            
+            return counter;
+        }
+        
+        
+        
+        public String getCustomerWithMostReservations() {
+            
+            Map<String, Integer> allRenters = new HashMap<String, Integer>();
+            
+            for (Car c : this.cars) {
+                List<Reservation> currReservations = c.getAllReservations();
+                
+                for (Reservation r : currReservations) {
+                    String currRenter = r.getCarRenter();
+                    
+                    if (allRenters.containsKey(currRenter)) {
+                        int oldValue = allRenters.get(currRenter);
+                        allRenters.put(currRenter, oldValue + 1);   
+                    }
+                    else {
+                        allRenters.put(currRenter, 1);
+                    }                   
+                }
+                
+            }
+            
+            int currMax = 0;
+            String currMaxHolder = "";
+            
+            for (String renter : allRenters.keySet()) {
+                
+                int nbReservations = allRenters.get(renter);
+                
+                if (nbReservations > currMax) {
+                    currMax = nbReservations;
+                    currMaxHolder = renter;
+                }
+            }
+            
+            return currMaxHolder;
+            
+        }
+        
 }

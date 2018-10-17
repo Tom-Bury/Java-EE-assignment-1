@@ -1,8 +1,10 @@
 package session;
 
-import java.util.List;
+import java.util.Collection;
 import javax.ejb.Stateless;
+import rental.CarRentalCompany;
 import rental.CarType;
+import rental.RentalStore;
 
 
 // STATELESS SESSION BEAN : retains NO state between method invocations
@@ -13,8 +15,9 @@ public class ManagerSession implements ManagerSessionRemote {
     Request a list of cartypes from the given car rental company.
     */
     @Override
-    public List<CarType> requestAllCarTypesOf(String company) {
-        return null;
+    public Collection<CarType> requestAllCarTypesOf(String company) {
+        CarRentalCompany currCompany = RentalStore.getRental(company);
+        return currCompany.getCarTypes();
     }
     
     
@@ -23,11 +26,14 @@ public class ManagerSession implements ManagerSessionRemote {
     */
     @Override
     public int getNumberOfReservationsFor(String carType, String company) {
-        return 0;
+        CarRentalCompany currCompany = RentalStore.getRental(company);
+        return currCompany.getNbReservationsFor(carType);
     }
     
     
-    public String getCustomerWithMostReservations() {
-        return null;
+    @Override
+    public String getCustomerWithMostReservations(String company) {
+        CarRentalCompany currCompany = RentalStore.getRental(company);
+        return currCompany.getCustomerWithMostReservations();
     }
 }
