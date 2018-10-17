@@ -81,7 +81,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
     }
     
     @Override
-    public void confirmQuotes() throws ReservationException {
+    public List<Reservation> confirmQuotes() throws ReservationException {
         List<Reservation> reservations = new ArrayList<Reservation>();
         
         try {
@@ -96,6 +96,8 @@ public class CarRentalSession implements CarRentalSessionRemote {
             Logger.getLogger(CarRentalSession.class.getName()).log(Level.SEVERE, null, e);
             throw e;                
         }
+        
+        return reservations;
         
     }
        

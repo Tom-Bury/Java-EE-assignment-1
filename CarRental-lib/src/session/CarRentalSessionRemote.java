@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.ejb.Remote;
 import rental.CarType;
 import rental.Quote;
+import rental.Reservation;
 import rental.ReservationConstraints;
 import rental.ReservationException;
 
@@ -20,7 +21,7 @@ public interface CarRentalSessionRemote {
     
     void setName(String name);
     
-    void confirmQuotes() throws ReservationException;
+    List<Reservation> confirmQuotes() throws ReservationException;
     
     Set<CarType> checkForAvailableCarTypes(Date start, Date end);
 }
