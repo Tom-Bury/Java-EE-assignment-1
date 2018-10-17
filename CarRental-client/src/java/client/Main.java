@@ -11,6 +11,7 @@ import rental.ReservationConstraints;
 import session.CarRentalSessionRemote;
 import rental.CarType;
 import rental.Reservation;
+import rental.ReservationException;
 import session.ManagerSessionRemote;
 
 public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSessionRemote>{
@@ -79,8 +80,8 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     
     @Override
-    protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws ReservationException {
+        return session.confirmQuotes(); 
     }
     
     
